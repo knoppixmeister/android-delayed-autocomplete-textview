@@ -54,7 +54,7 @@ class AutoCompleteAdapter extends ArrayAdapter<String> {
 
 		TextView tv = (TextView) view.findViewById(R.id.textView1);
 		tv.setText(getItem(position));
-		
+
 		return view;
 	}
 

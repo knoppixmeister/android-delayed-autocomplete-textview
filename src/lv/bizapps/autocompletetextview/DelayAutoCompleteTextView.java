@@ -18,15 +18,14 @@ public class DelayAutoCompleteTextView extends AutoCompleteTextView {
 
     @SuppressLint("HandlerLeak")
     private final Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            DelayAutoCompleteTextView.super.performFiltering((CharSequence) msg.obj, msg.arg1);
-        }
-    };
+    	public void handleMessage(Message msg) {
+    		DelayAutoCompleteTextView.super.performFiltering((CharSequence) msg.obj, msg.arg1);
+    	}
+	};
 
-    public DelayAutoCompleteTextView(Context context, AttributeSet attrs) {
+	public DelayAutoCompleteTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
-    }
+	}
 
     public void setLoadingIndicator(ProgressBar progressBar) {
         mLoadingIndicator = progressBar;
@@ -37,18 +36,14 @@ public class DelayAutoCompleteTextView extends AutoCompleteTextView {
     }
 
     protected void performFiltering(CharSequence text, int keyCode) {
-        if (mLoadingIndicator != null) {
-            mLoadingIndicator.setVisibility(View.VISIBLE);
-        }
-        mHandler.removeMessages(MESSAGE_TEXT_CHANGED);
-        mHandler.sendMessageDelayed(mHandler.obtainMessage(MESSAGE_TEXT_CHANGED, text), mAutoCompleteDelay);
+    	if(mLoadingIndicator != null) mLoadingIndicator.setVisibility(View.VISIBLE);
+
+    	mHandler.removeMessages(MESSAGE_TEXT_CHANGED);
+    	mHandler.sendMessageDelayed(mHandler.obtainMessage(MESSAGE_TEXT_CHANGED, text), mAutoCompleteDelay);
     }
 
     public void onFilterComplete(int count) {
-        if (mLoadingIndicator != null) {
-            mLoadingIndicator.setVisibility(View.GONE);
-        }
- 
-        super.onFilterComplete(count);
+    	if(mLoadingIndicator != null) mLoadingIndicator.setVisibility(View.GONE);
+    	super.onFilterComplete(count);
     }
 }
