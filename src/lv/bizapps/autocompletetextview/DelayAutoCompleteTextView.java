@@ -17,14 +17,14 @@ public class DelayAutoCompleteTextView extends AutoCompleteTextView {
 	private ProgressBar mLoadingIndicator;
 
 	@SuppressLint("HandlerLeak")
-    private final Handler mHandler = new Handler() {
-    	public void handleMessage(Message msg) {
-    		DelayAutoCompleteTextView.super.performFiltering((CharSequence) msg.obj, msg.arg1);
-    	}
+	private final Handler mHandler = new Handler() {
+		public void handleMessage(Message msg) {
+			DelayAutoCompleteTextView.super.performFiltering((CharSequence) msg.obj, msg.arg1);
+		}
 	};
 
 	public DelayAutoCompleteTextView(Context context, AttributeSet attrs) {
-        super(context, attrs);
+		super(context, attrs);
 	}
 
     public void setLoadingIndicator(ProgressBar progressBar) {
@@ -40,9 +40,9 @@ public class DelayAutoCompleteTextView extends AutoCompleteTextView {
 
     	mHandler.removeMessages(MESSAGE_TEXT_CHANGED);
     	mHandler.sendMessageDelayed(mHandler.obtainMessage(MESSAGE_TEXT_CHANGED, text), mAutoCompleteDelay);
-    }
+	}
 
-    public void onFilterComplete(int count) {
+	public void onFilterComplete(int count) {
     	if(mLoadingIndicator != null) mLoadingIndicator.setVisibility(View.GONE);
     	super.onFilterComplete(count);
     }

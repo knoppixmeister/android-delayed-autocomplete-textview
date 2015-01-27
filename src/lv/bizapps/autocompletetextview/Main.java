@@ -28,7 +28,7 @@ public class Main extends ActionBarActivity {
         actv.setThreshold(3);
         actv.setLoadingIndicator((ProgressBar)findViewById(R.id.progress_bar));
         actv.setOnItemClickListener(new OnItemClickListener() {
-        	public void onItemClick(AdapterView<?> arg0, View arg1, int id1, long id2) {
+        	public void onItemClick(AdapterView<?> av, View view, int id1, long id2) {
 				Log.e("AAA", "BBBB: "+id1);
         	}
         });
@@ -98,7 +98,7 @@ class AutoCompleteAdapter extends ArrayAdapter<String> {
 					notifyDataSetChanged();
 				}
 				else mResults = new ArrayList<String>();
-						//notifyDataSetInvalidated();
+					//notifyDataSetInvalidated();
 			}
 		};
 
