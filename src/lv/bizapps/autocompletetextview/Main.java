@@ -1,5 +1,8 @@
 package lv.bizapps.autocompletetextview;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
@@ -24,16 +27,18 @@ public class Main extends ActionBarActivity {
         actv.setAdapter(new AutoCompleteAdapter(this, R.layout.list_item));
         actv.setLoadingIndicator((ProgressBar)findViewById(R.id.progress_bar));
         actv.setOnItemClickListener(new OnItemClickListener() {
-			public void onItemClick(AdapterView<?> arg0, View arg1, int id1, long id2) {
+        	public void onItemClick(AdapterView<?> arg0, View arg1, int id1, long id2) {
 				Log.e("AAA", "BBBB: "+id1);
-			}
-		});
+        	}
+        });
     }
 }
 
 class AutoCompleteAdapter extends ArrayAdapter<String> {
 	protected Context context;
 	protected LayoutInflater li;
+
+	protected List<String> results = new ArrayList<String>();
 
 	public AutoCompleteAdapter(Context context, int resource) {
 		super(context, resource);
@@ -42,12 +47,17 @@ class AutoCompleteAdapter extends ArrayAdapter<String> {
 		this.li = (LayoutInflater)this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 
+	@Override
+	public int getCount() {
+		return results.size();
+	}
+
 	@SuppressLint("ViewHolder")
 	public View getView(int position, View view, ViewGroup root) {
 		view = li.inflate(R.layout.list_item, root, false);
 
 		TextView tv = (TextView) view.findViewById(R.id.textView1);
-		tv.setText(getItem(position));
+		tv.setText(results.get(position));
 
 		return view;
 	}
@@ -57,14 +67,34 @@ class AutoCompleteAdapter extends ArrayAdapter<String> {
 		Log.e("AAA", "GET FILTER");
 
 		Filter filter = new Filter() {
-			protected void publishResults(CharSequence constraint, FilterResults results) {
-				Log.e("AAA", "FILTER PUBLISH RES: "+constraint);
-			}
-
 			protected FilterResults performFiltering(CharSequence constraint) {
 				Log.e("AAA", "FILTER PERFORM FILTERING: "+constraint);
 
-				return null;
+				FilterResults fr = new FilterResults();
+
+				if(constraint != null) {
+					List<String> vs = new ArrayList<String>();
+
+					vs.add("AAA");
+					vs.add("BBB");
+					vs.add("CCCC");
+
+					fr.values = vs;
+					fr.count = vs.size();
+				}
+				
+				return fr;
+			}
+			
+			@SuppressWarnings("unchecked")
+			protected void publishResults(CharSequence constraint, FilterResults results) {
+				Log.e("AAA", "FILTER PUBLISH RES: "+constraint);
+
+				if(results != null && results.count > 0) {
+					AutoCompleteAdapter.this.results = (List<String>) results.values;
+					notifyDataSetChanged();
+				}
+				else notifyDataSetInvalidated();
 			}
 		};
 
