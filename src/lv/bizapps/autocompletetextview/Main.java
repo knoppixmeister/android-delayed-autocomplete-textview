@@ -40,12 +40,6 @@ class AutoCompleteAdapter extends ArrayAdapter<String> {
 
 		this.context = context;
 		this.li = (LayoutInflater)this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-		add("AAA");
-		add("AAB");
-		add("AAC");
-		add("BBB");
-		add("CCC");
 	}
 
 	@SuppressLint("ViewHolder")
