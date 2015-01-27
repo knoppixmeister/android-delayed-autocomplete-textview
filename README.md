@@ -1,2 +1,1 @@
-# android-delayed-autocomplete-textview
-Android example app
+# Android example app with delayed autocomplete textview
