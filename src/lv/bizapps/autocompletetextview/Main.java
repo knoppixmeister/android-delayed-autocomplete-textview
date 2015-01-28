@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -33,6 +34,13 @@ public class Main extends ActionBarActivity {
         	}
         });
     }
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		menu.add("Menu 1");
+
+		return true;
+	}
 }
 
 class AutoCompleteAdapter extends ArrayAdapter<String> {
